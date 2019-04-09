@@ -79,32 +79,74 @@ function listMajors(auth) {
     }, (err, res) => {
         if (err) return console.log('The API returned an error: ' + err);
         const rows = res.data.values;
+
+
         if (rows.length) {
-            
+
             // console.log('--------------------');
             // console.log('The rows data');
             // console.log(rows[0][0], rows[0][1]);
             // console.log('--------------------');
             // console.log('First Name, Last Name, Employee ID, Department, Salary');
             console.log('Generating HTML pages for each employee . . . .');
-            
-            
-            // Print columns A and E, which correspond to indices 0 and 4.
-            
+
+
+            // A [0]: First Name    // B [1]: Last Name // C [2]: Employee ID   // D [3]: Department    // E [4]: Salary
+
             rows.map((row) => {
-                // console.log(`${row[0]}, ${row[1]}, ${row[2]}, ${row[3]}, ${row[4]}`);
-                fs.writeFile(`${row[0]}_${row[2]}`+".html", row, (err) => {
+
+                let employeeData = `
+                <!DOCTYPE html>
+                    <html>
+                    <head>
+                    <meta charset='utf-8'>
+                    <title>${row[0]}_${row[2]}</title>
+                    <link rel='stylesheet' href='styles.css'>
+                    </head>
+                        <body>
+                        <div class='title'>
+                            <h1>Employee Information</h1>
+                        </div>
+                        
+                    <div class='wrapper'>
+                            <div class='wrapper-content'>
+                            
+                            <div class='employee-photo'>
+                                <img src='./images/${row[0]}.png'>
+                            </div>
+                            
+                                <div class='employee-name'>
+                                    <p>Name: ${row[0]} ${row[1]}</p>
+                                </div>
+                                
+                                <div class='employee-id'>
+                                    <p>ID Number: ${row[2]}</p>
+                                </div>
+                                
+                                <div class='employee-dept'>
+                                    <p>Department: ${row[3]}</p>
+                                </div>
+                                
+                                <div class='employee-salary'>
+                                    <p>Salary: $${row[4]}</p>
+                                </div>
+                            </div>
+                    </div>
+                        </body>
+                    </html>`;
+
+
+
+                fs.writeFile(`${row[0]}_${row[2]}` + ".html", employeeData, (err) => {
                     if (err) throw err;
-                    
-                    var employeeData;
+
                 })
             });
         }
         else {
             console.log('No data found.');
         }
-        
-        
+
+
     });
 }
-
