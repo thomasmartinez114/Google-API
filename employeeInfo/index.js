@@ -112,7 +112,7 @@ function listMajors(auth) {
                             <div class='wrapper-content'>
                             
                             <div class='employee-photo'>
-                                <img src='./images/${row[0]}.png'>
+                                <img src='../images/${row[0]}.png'>
                             </div>
                             
                                 <div class='employee-name'>
@@ -137,7 +137,7 @@ function listMajors(auth) {
 
 
 
-                fs.writeFile(`${row[0]}_${row[2]}` + ".html", employeeData, (err) => {
+                fs.writeFile(`./html/${row[0]}_${row[2]}` + ".html", employeeData, (err) => {
                     if (err) throw err;
 
                 })
